@@ -1,0 +1,103 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% assign title = '' %}
+    {% if page.layout == 'author' %}
+        {% assign title = page.display_name %}
+    {% elsif page.title %}
+        {% assign title = page.title | append: " | " | append: site.name %}
+    {% else %}
+        {% assign title = site.title %}
+    {% endif %}
+
+    {% assign image = '' %}
+    {% if page.image %}
+        {% assign image = page.image %}
+    {% else %}
+        {% assign image = "https://cdn.discordapp.com/attachments/728581754398572546/849187512689360906/DATENSHI_BANNER.png" | prepend: site.baseurl | prepend: site.url %}
+    {% endif %}
+
+    {% assign description = '' %}
+    {% if page.description %}
+        {% assign description = page.description | strip_html | strip_newlines | truncate: 160 %}
+    {% else %}
+        {% assign description = site.description %}
+    {% endif %}
+
+    {% assign url = '' %}
+    {% if paginator.page_trail %}
+        {% assign url = paginator.first_page_path | replace:'index.html','' | prepend: site.baseurl | prepend: site.url %}
+    {% else %}
+        {% assign url = page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url %}
+    {% endif %}
+
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    {% if page.tags %}
+        <meta name="keywords" content="{{ page.tags | join: ', ' }}">
+    {% endif %}
+
+    <!-- Social: Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ description }}">
+
+    {% if image contains '://' %}
+        <meta property="twitter:image" content="{{ image }}">
+    {% else %}
+        <meta property="twitter:image" content="{{ image | prepend: site.url }}">
+    {% endif %}
+    
+    {% if site.twitter_username %}
+        <meta name="twitter:site" content="@{{ site.twitter_username }}">
+    {% endif %}
+
+    <!-- Social: Facebook / Open Graph -->
+    <meta property="og:url" content="{{ url }}">
+    <meta property="og:image" content="{{ image }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ site.baseurl }}/assets/img/icons/favicon.ico" type="image/x-icon" />
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ site.baseurl }}/assets/img/icons/apple-touch-icon-120x120.png" />
+
+    <!-- Windows 8 Tile Icons -->
+    <meta name="application-name" content="{{ site.name }}">
+    <meta name="msapplication-TileColor" content="#141414">
+    <meta name="msapplication-square70x70logo" content="smalltile.png" />
+    <meta name="msapplication-square150x150logo" content="mediumtile.png" />
+    <meta name="msapplication-wide310x150logo" content="widetile.png" />
+    <meta name="msapplication-square310x310logo" content="largetile.png" />
+    
+    <!-- Android Lolipop Theme Color -->
+    <meta name="theme-color" content="#141414">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | prepend: site.baseurl }}">
+    <link rel="canonical" href="{{ url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}" />
+
+    <!-- Include extra styles -->
+    {% include extra-css.html %}
+    
+    <!-- Google Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9835155998318426" crossorigin="anonymous"></script>
+    
+    <!-- Self-hosted umami-->
+    <script async defer data-website-id="6cad0a6c-1b59-4005-ade9-266282c9f757" src="https://jolly-brigadeiros-0ee775.netlify.app/umami.js"></script>
+    
+    <!-- Chatbro -->
+    <script id="chatBroEmbedCode">/* Chatbro Widget Embed Code Start */function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','//www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}/* Chatbro Widget Embed Code End */ChatbroLoader({encodedChatId: '88QbB'});</script>
+    
+    <!-- JavaScript enabled/disabled -->
+    <script>
+        document.querySelector('html').classList.remove('no-js');
+    </script>
+</head>
